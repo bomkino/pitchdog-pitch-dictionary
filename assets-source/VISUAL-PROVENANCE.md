@@ -25,3 +25,9 @@ A transformed 1.91:1 social card using the hero as a material and color referenc
 Preserve aspect ratio, use art-directed crops, and keep the object integrated with its color field. Do not redraw the artwork or pitch.dog mark as synthetic SVG. The website contains no animated grain or noise overlay.
 
 Licensing and generated-image limits are documented in [../ASSET-LICENSE.md](../ASSET-LICENSE.md).
+
+## Runtime word galaxy
+
+The navigable word galaxy is original project code built from the public editorial registry. It uses no generated raster, third-party artwork, shader, icon, copied Pen, or remote runtime asset. Canvas draws the sky and routes; semantic HTML owns the words and actions.
+
+Mechanism-level references for click-to-warp depth, projected star streaks, direct dragging, and pointer gravity are recorded in [../THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). The implementation, composition, motion values, copy, relationship logic, and visual system were rebuilt for pitch.dog.

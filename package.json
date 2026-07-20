@@ -1,6 +1,6 @@
 {
   "name": "@pitch-dog/pitch-dictionary",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A fuzzy-searchable plain-English pitch dictionary from pitch.dog.",
   "license": "AGPL-3.0-or-later",
   "homepage": "https://pitchdog-pitch-dictionary.dog-pitch.chatgpt.site",
@@ -30,11 +30,7 @@
     "test:hosting": "node --test tests/hosting.test.mjs",
     "verify": "npm run check && npm run test && npm run build && npm run test:hosting"
   },
-  "dependencies": {
-    "matter-js": "^0.20.0"
-  },
   "devDependencies": {
-    "@types/matter-js": "^0.19.8",
     "@types/node": "^24.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.0.0"

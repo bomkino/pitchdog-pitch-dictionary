@@ -3,6 +3,7 @@ dist/
 test-results/
 playwright-report/
 coverage/
+output/
 *.log
 .DS_Store
 Icon
