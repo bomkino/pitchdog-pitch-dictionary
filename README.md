@@ -8,7 +8,7 @@
 
 **Clear the doubt. Keep your place.**
 
-A local-first dictionary for pitch work: 200 plain-English terms, forgiving fuzzy search, useful context, and a celestial map of related ideas.
+A local-first dictionary for pitch work: 200 plain-English terms, forgiving fuzzy search, useful context, and a navigable galaxy of related ideas.
 
 [![Verify](https://github.com/bomkino/pitchdog-pitch-dictionary/actions/workflows/ci.yml/badge.svg)](https://github.com/bomkino/pitchdog-pitch-dictionary/actions/workflows/ci.yml)
 
@@ -27,11 +27,20 @@ Results explain:
 - what it changes in the work;
 - nearby ideas and common confusions.
 
-## Constellations, not a thesaurus dump
+## One word. Then the galaxy.
 
-Open any term to see a deterministic map of related concepts. Nodes are real buttons, relationships are also listed in text, the dialog resets cleanly when you travel, and reduced-motion users get the same information without parallax.
+Search when you know what is bothering you. Travel when you do not. Hover or focus a star for its plain meaning; choose it to make it the centre. The definition changes without throwing away your place.
 
-The opening word field uses Matter.js physics. It is one keyboard stop: arrow keys move between words, focus pauses the motion, and reduced-motion users receive the same routes in a stable layout. The constellation uses a light canvas layer plus semantic HTML. Neither is a decorative loading screen; both lead into the dictionary.
+The galaxy is deterministic editorial navigation, not an AI-generated thesaurus. Big stars have more recorded connections. Brighter paths mean a closer relationship. Faint terms sit further out. Every visual route is also available as an ordinary text button.
+
+The physical layer is deliberately interruptible:
+
+- drag a word and it springs home from its live position and velocity;
+- hold empty sky to pull nearby words into a temporary gravity well;
+- use arrow keys to move spatially, `Home` to return to the centre, and `Enter` to travel;
+- choose reduced motion for the same map without twinkling, momentum, streaks, or animated travel.
+
+Canvas draws light, filaments, depth, and occasional shooting stars. Semantic HTML carries every term, meaning, and action. The showmanship never becomes the only route.
 
 ## Local by design
 
@@ -53,11 +62,12 @@ npm run verify
 
 - `src/terms.ts` — the public 200-term editorial registry
 - `src/search.ts` — deterministic fuzzy ranking
-- `src/constellation.ts` — related-term scoring and node layout
-- `src/physics.ts` — reduced-motion-aware opening field
+- `src/constellation.ts` — relationship scoring, semantic mass, spatial navigation, and the shared galaxy
+- `src/physics.ts` — springs, collision pressure, momentum projection, and edge resistance
 - `src/main.ts` — search, categories, pagination, dialog, and navigation
 - `tests/` — search, registry, constellation, and hosting contracts
 - `docs/PRODUCT-CONTRACT.md` — editorial and technical boundaries
+- `THIRD_PARTY_NOTICES.md` — transformed interaction references; no copied code or assets
 
 ## Contributing and reuse
 
