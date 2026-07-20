@@ -4,6 +4,8 @@
 
 # Pitch Dictionary
 
+**[Open the live tool](https://pitchdog-pitch-dictionary.dog-pitch.chatgpt.site)**
+
 **Clear the doubt. Keep your place.**
 
 A local-first dictionary for pitch work: 187 plain-English terms, forgiving fuzzy search, useful context, and a celestial map of related ideas.
