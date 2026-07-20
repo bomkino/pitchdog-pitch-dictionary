@@ -1,0 +1,33 @@
+name: Product improvement
+description: Propose a clearer route, missing case, definition, accessibility fix, or useful flourish.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: user
+    attributes:
+      label: Who is this for?
+      description: Name the person, situation, and decision—not a demographic mood board.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is hard today?
+      description: Include the current route and where it fails.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change?
+      description: Describe the smallest useful intervention.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: What could this make worse?
+      description: Consider speed, clarity, accessibility, privacy, maintenance, and scope.
+    validations:
+      required: true

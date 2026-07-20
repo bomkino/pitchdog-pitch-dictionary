@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible product, accessibility, copy, or technical defect.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you. Specific beats dramatic: show us the screen, choice, and result."
+  - type: textarea
+    id: problem
+    attributes:
+      label: What went wrong?
+      description: Describe the user-visible problem and why it matters.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction
+      description: Give the shortest exact route from a fresh load.
+      placeholder: "1. Open…\n2. Choose…\n3. See…"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      placeholder: "Safari 20, macOS 17; or Chrome 140, Pixel 10"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshot, recording, or console error
+      description: Remove private project material first.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed private pitch copy, names, contact details, and unreleased material.
+          required: true
