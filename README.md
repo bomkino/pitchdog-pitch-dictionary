@@ -8,7 +8,7 @@
 
 **Clear the doubt. Keep your place.**
 
-A local-first dictionary for pitch work: 187 plain-English terms, forgiving fuzzy search, useful context, and a celestial map of related ideas.
+A local-first dictionary for pitch work: 200 plain-English terms, forgiving fuzzy search, useful context, and a celestial map of related ideas.
 
 [![Verify](https://github.com/bomkino/pitchdog-pitch-dictionary/actions/workflows/ci.yml/badge.svg)](https://github.com/bomkino/pitchdog-pitch-dictionary/actions/workflows/ci.yml)
 
@@ -18,7 +18,7 @@ A local-first dictionary for pitch work: 187 plain-English terms, forgiving fuzz
 
 ## Search like a person
 
-Search by term, acronym, meaning, alias, or a reasonable misspelling. Filters cover eight practical families: foundations, story and form, people and route, deck craft, delivery and access, evidence and money, production and rights, and process.
+Search by term, acronym, meaning, alias, or a reasonable misspelling. Filters cover eight practical families: foundations, story and screen, advertising, business and startups, rooms and slides, evidence and claims, rights and labor, and access and inclusion.
 
 Results explain:
 
@@ -31,7 +31,7 @@ Results explain:
 
 Open any term to see a deterministic map of related concepts. Nodes are real buttons, relationships are also listed in text, the dialog resets cleanly when you travel, and reduced-motion users get the same information without parallax.
 
-The opening word field uses Matter.js physics. The constellation uses a light canvas layer plus semantic HTML. Neither is a decorative loading screen; both lead into the dictionary.
+The opening word field uses Matter.js physics. It is one keyboard stop: arrow keys move between words, focus pauses the motion, and reduced-motion users receive the same routes in a stable layout. The constellation uses a light canvas layer plus semantic HTML. Neither is a decorative loading screen; both lead into the dictionary.
 
 ## Local by design
 
@@ -51,7 +51,7 @@ npm run verify
 
 ## How it is built
 
-- `src/terms.ts` — the public 187-term editorial registry
+- `src/terms.ts` — the public 200-term editorial registry
 - `src/search.ts` — deterministic fuzzy ranking
 - `src/constellation.ts` — related-term scoring and node layout
 - `src/physics.ts` — reduced-motion-aware opening field

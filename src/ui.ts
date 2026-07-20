@@ -76,6 +76,10 @@ export function bindTheme(storageKey: string): void {
     document.documentElement.dataset.theme = theme;
     document.documentElement.dataset.themeSource = source;
     document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0d0e0c" : "#f3f2ed");
+    const toggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
+    const next = theme === "dark" ? "light" : "dark";
+    toggle?.setAttribute("aria-label", `Switch to ${next} theme`);
+    toggle?.setAttribute("title", `Switch to ${next} theme`);
   };
   if (!themeSystemBound) {
     system.addEventListener("change", (event) => {

@@ -5,13 +5,36 @@ const { Engine, Bodies, Body, Composite, Events, Runner } = Matter;
 
 export function initialiseWordDrop(stage: HTMLElement, terms: readonly PitchTerm[]): () => void {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const chosen = ["Logline","Ask","Comps","Traction","Tone","Brief","Insight","Pilot","Hierarchy","Usage","Proof point","Pitch","World","Consent","Hook","Runway","Storyboard","Access route"]
+  const chosen = ["Logline","Ask","Comps","Traction","Tone","Brief","Insight","Pilot","Information hierarchy","Usage","Proof point","Pitch","World","Consent","Hook","Runway","Storyboard","Access route"]
     .map((label) => terms.find((term) => term.label === label)).filter(Boolean) as PitchTerm[];
   const elements = chosen.map((term) => {
     const button = document.createElement("button"); button.type = "button"; button.className = "falling-word"; button.textContent = term.label; button.dataset.term = term.id; button.setAttribute("aria-label", `Open ${term.label}`); stage.append(button); return { term, button };
   });
+  elements.forEach(({ button }, index) => { button.tabIndex = index === 0 ? 0 : -1; });
   elements.forEach(({ term, button }) => button.addEventListener("click", () => stage.dispatchEvent(new CustomEvent("dictionary:open", { bubbles: true, detail: term.id }))));
-  if (reduced) { stage.classList.add("physics-paused"); return () => { elements.forEach(({ button }) => button.remove()); }; }
+  const focusWord = (index: number) => {
+    const safe = (index + elements.length) % elements.length;
+    elements.forEach(({ button }, itemIndex) => { button.tabIndex = itemIndex === safe ? 0 : -1; });
+    elements[safe]?.button.focus();
+  };
+  const onKeydown = (event: KeyboardEvent) => {
+    const current = elements.findIndex(({ button }) => button === document.activeElement);
+    if (current < 0) return;
+    if (["ArrowRight", "ArrowDown"].includes(event.key)) { event.preventDefault(); focusWord(current + 1); }
+    if (["ArrowLeft", "ArrowUp"].includes(event.key)) { event.preventDefault(); focusWord(current - 1); }
+    if (event.key === "Home") { event.preventDefault(); focusWord(0); }
+    if (event.key === "End") { event.preventDefault(); focusWord(elements.length - 1); }
+  };
+  const onFocusIn = (event: FocusEvent) => {
+    const index = elements.findIndex(({ button }) => button === event.target);
+    if (index >= 0) elements.forEach(({ button }, itemIndex) => { button.tabIndex = itemIndex === index ? 0 : -1; });
+  };
+  stage.addEventListener("keydown", onKeydown);
+  stage.addEventListener("focusin", onFocusIn);
+  if (reduced) {
+    stage.classList.add("physics-paused");
+    return () => { stage.removeEventListener("keydown", onKeydown); stage.removeEventListener("focusin", onFocusIn); elements.forEach(({ button }) => button.remove()); };
+  }
 
   const engine = Engine.create({ gravity: { x: 0.05, y: 0.72, scale: 0.001 } });
   const runner = Runner.create();
@@ -41,6 +64,10 @@ export function initialiseWordDrop(stage: HTMLElement, terms: readonly PitchTerm
   };
   let resizeFrame = 0;
   const resize = () => { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(rebuild); };
-  rebuild(); Events.on(engine, "afterUpdate", sync); Runner.run(runner, engine); stage.addEventListener("pointermove", pointer, { passive: true }); addEventListener("resize", resize, { passive: true });
-  return () => { Runner.stop(runner); Events.off(engine, "afterUpdate", sync); Composite.clear(engine.world, false); Engine.clear(engine); stage.removeEventListener("pointermove", pointer); removeEventListener("resize", resize); elements.forEach(({ button }) => button.remove()); };
+  let running = false;
+  const start = () => { if (!running) { Runner.run(runner, engine); running = true; } };
+  const pause = () => { if (running) { Runner.stop(runner); running = false; } };
+  const onFocusOut = () => queueMicrotask(() => { if (!stage.matches(":focus-within")) start(); });
+  rebuild(); Events.on(engine, "afterUpdate", sync); start(); stage.addEventListener("pointermove", pointer, { passive: true }); stage.addEventListener("focusin", pause); stage.addEventListener("focusout", onFocusOut); addEventListener("resize", resize, { passive: true });
+  return () => { pause(); Events.off(engine, "afterUpdate", sync); Composite.clear(engine.world, false); Engine.clear(engine); stage.removeEventListener("pointermove", pointer); stage.removeEventListener("keydown", onKeydown); stage.removeEventListener("focusin", onFocusIn); stage.removeEventListener("focusin", pause); stage.removeEventListener("focusout", onFocusOut); removeEventListener("resize", resize); elements.forEach(({ button }) => button.remove()); };
 }

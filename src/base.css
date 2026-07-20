@@ -49,7 +49,8 @@ body {
 ::selection { background: var(--pink); color: #10110e; }
 button, input, textarea, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
-button:disabled { cursor: wait; opacity: 0.58; }
+button:disabled { cursor: not-allowed; opacity: 0.58; }
+button[aria-busy="true"] { cursor: progress; }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin-top: 0; }
@@ -286,6 +287,7 @@ h1[tabindex="-1"]:focus { outline: none; }
 }
 .question-art img { aspect-ratio: 3 / 2; object-fit: cover; }
 .answers-panel { display: flex; align-items: center; padding: clamp(1.25rem, 4vw, 4rem); background: color-mix(in srgb, var(--paper) 72%, var(--bg)); box-shadow: inset 1px 0 var(--line); }
+.answers-instruction { margin: 0 0 1rem; color: var(--muted); font-family: var(--serif); font-size: 0.98rem; }
 .answer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; width: 100%; }
 .answer-card {
   position: relative;

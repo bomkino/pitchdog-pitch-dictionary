@@ -27,6 +27,12 @@ const ORBITS: readonly (readonly string[])[] = [
   ["sequence", "transition", "pitch-narrative", "page-job", "section-job", "progressive-disclosure", "reading-order"],
   ["comps", "positioning", "differentiator", "visual-reference", "market-proof", "genre", "tone"],
   ["unpaid-pitch", "speculative-work", "pitch-fee", "portfolio-work", "usage", "licence", "consent"],
+  ["proof-of-concept", "sizzle-reel", "key-art", "treatment", "lookbook", "visual-reference", "pilot"],
+  ["cold-open", "hook", "pilot", "inciting-incident", "beat"],
+  ["arr", "mrr", "gross-margin", "burn-rate", "runway", "unit-economics", "projection"],
+  ["customer-acquisition-cost", "customer-lifetime-value", "conversion-rate", "retention", "churn", "cohort"],
+  ["safe", "term-sheet", "valuation", "cap-table", "due-diligence"],
+  ["residuals", "usage", "licence", "buyout", "credit"],
 ] as const;
 
 const STOP = new Set(["a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "how", "in", "is", "it", "of", "on", "or", "that", "the", "this", "to", "what", "when", "which", "who", "with"]);
@@ -107,7 +113,11 @@ export function mountConstellation(
     button.style.setProperty("--node-x", `${POSITIONS[index]?.[0] ?? 50}%`);
     button.style.setProperty("--node-y", `${POSITIONS[index]?.[1] ?? 50}%`);
     button.style.setProperty("--node-delay", `${index * -0.37}s`);
-    button.innerHTML = `<i aria-hidden="true"></i><span>${neighbour.label}</span>`;
+    const star = document.createElement("i");
+    star.setAttribute("aria-hidden", "true");
+    const label = document.createElement("span");
+    label.textContent = neighbour.label;
+    button.append(star, label);
     button.addEventListener("click", () => onSelect(neighbour.id));
     stage.append(button);
     return button;
@@ -157,16 +167,27 @@ export function mountConstellation(
   const resize = new ResizeObserver(queueDraw);
   resize.observe(stage);
   window.addEventListener("resize", queueDraw, { passive: true });
-  stage.addEventListener("pointermove", (event) => {
+  const pointerMove = (event: PointerEvent) => {
     const bounds = stage.getBoundingClientRect();
     stage.style.setProperty("--sky-x", `${((event.clientX - bounds.left) / bounds.width - 0.5) * 10}px`);
     stage.style.setProperty("--sky-y", `${((event.clientY - bounds.top) / bounds.height - 0.5) * 10}px`);
-  }, { passive: true });
+  };
+  const pointerLeave = () => {
+    stage.style.setProperty("--sky-x", "0px");
+    stage.style.setProperty("--sky-y", "0px");
+  };
+  const parallax = matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (parallax) {
+    stage.addEventListener("pointermove", pointerMove, { passive: true });
+    stage.addEventListener("pointerleave", pointerLeave);
+  }
   queueDraw();
 
   return () => {
     if (frame) cancelAnimationFrame(frame);
     resize.disconnect();
     window.removeEventListener("resize", queueDraw);
+    stage.removeEventListener("pointermove", pointerMove);
+    stage.removeEventListener("pointerleave", pointerLeave);
   };
 }
